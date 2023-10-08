@@ -1,5 +1,5 @@
 var button = document.getElementById('myButton');
-
+console.log("acsc")
 // Добавляем обработчик события "click" для кнопки
 button.addEventListener('click', function () {
     // Меняем текст кнопки при нажатии
@@ -8,6 +8,8 @@ button.addEventListener('click', function () {
         button.style.backgroundColor = '#00ff00'
     }
 })
+
+alert("Кнопка была нажата");
 /*
 var outputElement = document.getElementById(".button");
 // Создаем текст, который мы хотим отобразить
