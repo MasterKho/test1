@@ -1,15 +1,8 @@
-var button = document.getElementById('myButton');
-console.log("acsc")
-// Добавляем обработчик события "click" для кнопки
-button.addEventListener('click', function () {
-    // Меняем текст кнопки при нажатии
-    button.textContent = 'Заявка принята!';
-    if(button.textContent){
-        button.style.backgroundColor = '#00ff00'
-    }
-})
 
-alert("Кнопка была нажата");
+
+
+
+
 /*
 var outputElement = document.getElementById(".button");
 // Создаем текст, который мы хотим отобразить
@@ -21,7 +14,7 @@ outputElement.textContent = textToDisplay;
 button.addEventListener('click', function () {
     // Меняем текст кнопки при нажатии
     button.textContent = 'Джин-Клубника-Базилик';
-}*/
+}
 document.addEventListener("DOMContentLoaded", function() {
     // Получаем ссылку на кнопку с id "myButton"
     var button = document.getElementById("myButton");
@@ -31,4 +24,4 @@ document.addEventListener("DOMContentLoaded", function() {
         // Ваш обработчик события здесь
         alert("Кнопка была нажата");
     });
-});
+})
