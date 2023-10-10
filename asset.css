@@ -11,4 +11,10 @@
     .button:hover{
         background-color: blue;
     }
+
+@media (max-width: 320px) {
+    .button_item1 {
+      background-color: initial !important;
+    }
+  }
 */
