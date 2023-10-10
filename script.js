@@ -124,4 +124,136 @@
       button1.addEventListener("click", toggleTextAndBackground(button1, "Арбуз-Базилик", "Заявка принята!"));
 
       var button2 = document.getElementById("myButton3");
+      
       button2.addEventListener("click", toggleTextAndBackground(button2, "Ром на груше - тархун", "Заявка принята!"));
+
+
+
+
+      
+
+
+//
+function toggleTextAndBackground(button, text1, text2) {
+        var isAlternate = false; // Флаг для отслеживания текущего состояния
+
+        return function () {
+          if (isAlternate) {
+            // Если флаг установлен, возвращаем исходный текст и фон
+            button.textContent = text1;
+            button.style.backgroundColor = "";
+          } else {
+            // В противном случае, устанавливаем альтернативный текст и фон
+            button.textContent = text2;
+            button.style.backgroundColor = "#00ff00"; // Зеленый цвет фона
+          }
+          // Инвертируем флаг
+          isAlternate = !isAlternate;
+        };
+      }
+      //кнопки 1 ряд
+      var button = document.getElementById("myButton");
+      button.addEventListener(
+        "click",
+        toggleTextAndBackground(
+          button,
+          "Джин-Клубника-Базилик",
+          "Заявка принята!"
+        )
+      );
+
+      var button1 = document.getElementById("myButton2");
+      button1.addEventListener(
+        "click",
+        toggleTextAndBackground(button1, "Арбуз-Базилик", "Заявка принята!")
+      );
+
+      var button2 = document.getElementById("myButton3");
+      button2.addEventListener(
+        "click",
+        toggleTextAndBackground(
+          button2,
+          "Ром на груше - тархун",
+          "Заявка принята!"
+        )
+      );
+
+      var button3 = document.getElementById("myButton4");
+      button3.addEventListener(
+        "click",
+        toggleTextAndBackground(
+          button3,
+          " Мокровь-Апльсин-Грейфрут",
+          "Заявка принята!"
+        )
+      );
+
+      var button4 = document.getElementById("myButton5");
+      button4.addEventListener(
+        "click",
+        toggleTextAndBackground(button4, "Ром-Банан", "Заявка принята!")
+      );
+
+      var button5 = document.getElementById("myButton6");
+      button5.addEventListener(
+        "click",
+        toggleTextAndBackground(
+          button5,
+          "Алоэ-Джин-Красный бизилик",
+          "Заявка принята!"
+        )
+      );
+      //кнопки 2 ряд
+      var button6 = document.getElementById("myButton7");
+      button6.addEventListener(
+        "click",
+        toggleTextAndBackground(button6, "Кислый", "Заявка принята!")
+      );
+
+      var button7 = document.getElementById("myButton8");
+      button7.addEventListener(
+        "click",
+        toggleTextAndBackground(button7, "Сладкий", "Заявка принята!")
+      );
+
+      var button8 = document.getElementById("myButton9");
+      button8.addEventListener(
+        "click",
+        toggleTextAndBackground(button8, "Кисло-Сладкий", "Заявка принята!")
+      );
+
+      var button9 = document.getElementById("myButton10");
+      button9.addEventListener(
+        "click",
+        toggleTextAndBackground(button9, "Горький", "Заявка принята!")
+      );
+
+      var button10 = document.getElementById("myButton11");
+      button10.addEventListener(
+        "click",
+        toggleTextAndBackground(button10, "Соленый", "Заявка принята!")
+      );
+      //3ряд кнопки
+      var button11 = document.getElementById("myButton12");
+      button11.addEventListener(
+        "click",
+        toggleTextAndBackground(button11, "Крепкий", "Заявка принята!")
+      );
+
+      var button12 = document.getElementById("myButton13");
+      button12.addEventListener(
+        "click",
+        toggleTextAndBackground(button12, "Не крепкий", "Заявка принята!")
+      );
+      //сборщик данных
+      // Функция для сбора данных с кнопок и отправки в форму
+      function collectDataAndSubmit(button, formId) {
+        // Получаем текст с кнопки
+        var buttonText = button.textContent;
+      };
+        // Получаем ссылку на
+
+    
+
+
+
