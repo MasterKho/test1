@@ -254,6 +254,90 @@ function toggleTextAndBackground(button, text1, text2) {
         // Получаем ссылку на
 
     
+// сборщик данных
+
+        //сборщик данных
+        // Функция для сбора данных с кнопок и отправки в форму
+        function collectDataAndSubmit(button) {
+          // Получаем текст с кнопки
+          var buttonText = button.textContent;
+
+          // Получаем ссылку на поле данных в форме
+          var dataField = document.getElementById("data");
+
+          // Устанавливаем собранные данные в поле данных формы
+          dataField.value = buttonText;
+        }
+
+        // Добавляем обработчики события "click" для каждой кнопки
+        var buttons = document.querySelectorAll(".button");
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            collectDataAndSubmit(button);
+          });
+        });
+
+
+//форма с данными
+        // Создаем массив для хранения собранных данных
+        var собранныеДанные = [];
+
+        // Функция для сбора данных с кнопок и отправки в форму
+        function collectDataAndSubmit(button) {
+          // Получаем текст с кнопки
+          var buttonText = button.textContent;
+
+          // Добавляем текст в массив собранных данных
+          собранныеДанные.push(buttonText);
+
+          // Получаем ссылку на поле данных в форме
+          var dataField = document.getElementById("data");
+
+          // Устанавливаем собранные данные в поле данных формы, разделяя их запятой
+          dataField.value = собранныеДанные.join(", ");
+        }
+
+        // Добавляем обработчики события "click" для каждой кнопки
+        var buttons = document.querySelectorAll(".button");
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            collectDataAndSubmit(button);
+          });
+        });
 
 
 
+
+          // Создаем массив для хранения собранных данных
+          var собранныеДанные = [];
+
+          // Функция для сбора данных с кнопок и отправки в форму
+          function collectDataAndSubmit(button) {
+            // Получаем текст с кнопки
+            var buttonText = button.textContent;
+  
+            // Проверяем, есть ли этот текст в массиве
+            var index = собранныеДанные.indexOf(buttonText);
+  
+            if (index !== -1) {
+              // Если текст уже есть в массиве, удаляем его
+              собранныеДанные.splice(index, 1);
+            } else {
+              // Иначе добавляем текст в массив
+              собранныеДанные.push(buttonText);
+            }
+  
+            // Получаем ссылку на поле данных в форме
+            var dataField = document.getElementById("data");
+  
+            // Устанавливаем собранные данные в поле данных формы, разделяя их запятой
+            dataField.value = собранныеДанные.join(", ");
+          }
+  
+          // Добавляем обработчики события "click" для каждой кнопки
+          var buttons = document.querySelectorAll(".button");
+          buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+              collectDataAndSubmit(button);
+            });
+          });
