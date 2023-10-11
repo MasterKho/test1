@@ -194,9 +194,12 @@
           dataField.value = "";
         });
 
-        //что то
+        // Скрипт отправки данных на Google Документ
+        var googleScriptUrl =
+          "https://script.google.com/macros/s/your-script-id/exec";
+
         var submitButton = document.getElementById("submitButton");
-        var resultMessage = document.getElementById("resultMessage"); // Добавляем элемент для вывода сообщения
+        var resultMessage = document.getElementById("resultMessage");
 
         submitButton.addEventListener("click", function () {
           var confirmation = confirm(
@@ -205,34 +208,29 @@
 
           if (confirmation) {
             // Если пользователь нажал "ОК" в окне подтверждения
-            google.script.run
-              .withSuccessHandler(function (message) {
-                resultMessage.textContent = message;
-              })
-              .processForm(collectedData);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", googleScriptUrl, true);
+            xhr.setRequestHeader(
+              "Content-Type",
+              "application/x-www-form-urlencoded"
+            );
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                resultMessage.textContent = "Данные успешно отправлены.";
+              } else if (xhr.readyState == 4 && xhr.status != 200) {
+                resultMessage.textContent =
+                  "Произошла ошибка при отправке данных.";
+              }
+            };
+
+            var data = "data=" + encodeURIComponent(collectedData.join(", "));
+            xhr.send(data);
           } else {
             // Если пользователь нажал "Отмена" в окне подтверждения
             resultMessage.textContent = "Отправка данных отменена.";
           }
         });
-
-        //отправка на гугл док
-        function processForm(data) {
-          var doc = DocumentApp.openById(
-            "1Ftx2MOi1rxqAAtk0G12QPkgRzOhwhaZpJmPvwK_GZXA"
-          );
-          var body = doc.getBody();
-
-          var formData = data.join(", ");
-
-          var newParagraph = body.appendParagraph(formData);
-
-          var now = new Date();
-          newParagraph.appendText("Отправлено: " + now);
-
-          // Отправляем сообщение об успешной отправке
-          return "Данные успешно отправлены.";
-        }
       </script>
     </main>
   </body>
