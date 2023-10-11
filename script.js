@@ -341,3 +341,38 @@ function toggleTextAndBackground(button, text1, text2) {
               collectDataAndSubmit(button);
             });
           });
+
+
+          // Создаем массив для хранения собранных данных
+        var собранныеДанные = [];
+
+        // Функция для обработки нажатия на кнопку
+        function handleButtonClick(button) {
+          // Получаем текст с кнопки
+          var buttonText = button.textContent;
+
+          // Проверяем, есть ли этот текст в массиве
+          var index = собранныеДанные.indexOf(buttonText);
+
+          if (index !== -1) {
+            // Если текст уже есть в массиве, удаляем его
+            собранныеДанные.splice(index, 1);
+          } else {
+            // Иначе добавляем текст в массив
+            собранныеДанные.push(buttonText);
+          }
+
+          // Получаем ссылку на поле данных в форме
+          var dataField = document.getElementById("data");
+
+          // Устанавливаем собранные данные в поле данных формы, разделяя их запятой
+          dataField.value = собранныеДанные.join(", ");
+        }
+
+        // Добавляем обработчики события "click" для каждой кнопки
+        var buttons = document.querySelectorAll(".button");
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            handleButtonClick(button);
+          });
+        });

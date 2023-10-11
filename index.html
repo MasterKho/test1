@@ -45,6 +45,9 @@
       <form id="dataForm">
         <label for="data">Собранные данные:</label>
         <input class="form" type="text" id="data" name="data" readonly />
+
+        <button id="resetButton">Сброс</button>
+        <button id="submitButton">Отправить</button>
       </form>
 
       <script>
@@ -159,39 +162,42 @@
           "click",
           toggleTextAndBackground(button12, "Не крепкий", "Заявка принята!")
         );
+        //форма
+        var collectedData = [];
 
-        // Создаем массив для хранения собранных данных
-        var собранныеДанные = [];
-
-        // Функция для обработки нажатия на кнопку
         function handleButtonClick(button) {
-          // Получаем текст с кнопки
           var buttonText = button.textContent;
-
-          // Проверяем, есть ли этот текст в массиве
-          var index = собранныеДанные.indexOf(buttonText);
+          var index = collectedData.indexOf(buttonText);
 
           if (index !== -1) {
-            // Если текст уже есть в массиве, удаляем его
-            собранныеДанные.splice(index, 1);
+            collectedData.splice(index, 1);
           } else {
-            // Иначе добавляем текст в массив
-            собранныеДанные.push(buttonText);
+            collectedData.push(buttonText);
           }
 
-          // Получаем ссылку на поле данных в форме
           var dataField = document.getElementById("data");
-
-          // Устанавливаем собранные данные в поле данных формы, разделяя их запятой
-          dataField.value = собранныеДанные.join(", ");
+          dataField.value = collectedData.join(", ");
         }
 
-        // Добавляем обработчики события "click" для каждой кнопки
         var buttons = document.querySelectorAll(".button");
         buttons.forEach(function (button) {
           button.addEventListener("click", function () {
             handleButtonClick(button);
           });
+        });
+
+        var resetButton = document.getElementById("resetButton");
+        resetButton.addEventListener("click", function () {
+          collectedData = [];
+          var dataField = document.getElementById("data");
+          dataField.value = "";
+        });
+
+        var submitButton = document.getElementById("submitButton");
+        submitButton.addEventListener("click", function () {
+          // Отправьте данные на сервер или выполните другие действия по вашему выбору
+          // collectedData содержит выбранные элементы
+          alert("Отправлено: " + collectedData.join(", "));
         });
       </script>
     </main>
