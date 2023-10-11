@@ -376,3 +376,60 @@ function toggleTextAndBackground(button, text1, text2) {
             handleButtonClick(button);
           });
         });
+
+
+
+
+
+
+        var collectedData = [];
+
+                                        function handleButtonClick(button) {
+                                          var buttonText = button.textContent;
+                                          var index = collectedData.indexOf(buttonText);
+
+                                          if (index !== -1) {
+                                            collectedData.splice(index, 1);
+                                          } else {
+                                            collectedData.push(buttonText);
+                                          }
+
+                                          var dataField = document.getElementById("data");
+                                          dataField.value = collectedData.join(", ");
+                                        }
+
+                                        var buttons = document.querySelectorAll(".button");
+                                        buttons.forEach(function (button) {
+                                          button.addEventListener("click", function () {
+                                            handleButtonClick(button);
+                                          });
+                                        });
+
+                                        var resetButton = document.getElementById("resetButton");
+                                        resetButton.addEventListener("click", function () {
+                                          collectedData = [];
+                                          var dataField = document.getElementById("data");
+                                          dataField.value = "";
+                                        });
+
+                                        var submitButton = document.getElementById("submitButton");
+                                        submitButton.addEventListener("click", function ()) {
+                                          // Отправьте данные на сервер или выполните другие действия по вашему выбору
+                                          // collectedData содержит выбранные элементы
+                                          alert("Отправлено: " + collectedData.join(", "))};
+
+                                          //отправк
+                                          function doPost(e) {
+                          var doc = DocumentApp.openById('1Ftx2MOi1rxqAAtk0G12QPkgRzOhwhaZpJmPvwK_GZXA'); // Замените YOUR_DOCUMENT_ID на реальный идентификатор документа
+                          var body = doc.getBody();
+                          var formData = e.parameter.data; // Параметр 'data' соответствует имени вашего поля данных
+
+                          // Создаем новый параграф для каждой отправленной записи
+                          var newParagraph = body.appendParagraph(formData);
+
+                          // Опционально, можно добавить временную метку
+                          var now = new Date();
+                          newParagraph.appendText("Отправлено: " + now);
+
+                          return ContentService.createTextOutput('Данные успешно отправлены.');
+                        };

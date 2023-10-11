@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="asset.css" />
-    <script src="script.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -49,7 +48,7 @@
         <button id="resetButton">Сброс</button>
         <button id="submitButton">Отправить</button>
       </form>
-
+      <div id="resultMessage"></div>
       <script>
         function toggleTextAndBackground(button, text1, text2) {
           var isAlternate = false; // Флаг для отслеживания текущего состояния
@@ -162,7 +161,9 @@
           "click",
           toggleTextAndBackground(button12, "Не крепкий", "Заявка принята!")
         );
+
         //форма
+
         var collectedData = [];
 
         function handleButtonClick(button) {
@@ -193,12 +194,45 @@
           dataField.value = "";
         });
 
+        //что то
         var submitButton = document.getElementById("submitButton");
+        var resultMessage = document.getElementById("resultMessage"); // Добавляем элемент для вывода сообщения
+
         submitButton.addEventListener("click", function () {
-          // Отправьте данные на сервер или выполните другие действия по вашему выбору
-          // collectedData содержит выбранные элементы
-          alert("Отправлено: " + collectedData.join(", "));
+          var confirmation = confirm(
+            "Вы уверены, что хотите отправить данные?"
+          );
+
+          if (confirmation) {
+            // Если пользователь нажал "ОК" в окне подтверждения
+            google.script.run
+              .withSuccessHandler(function (message) {
+                resultMessage.textContent = message;
+              })
+              .processForm(collectedData);
+          } else {
+            // Если пользователь нажал "Отмена" в окне подтверждения
+            resultMessage.textContent = "Отправка данных отменена.";
+          }
         });
+
+        //отправка на гугл док
+        function processForm(data) {
+          var doc = DocumentApp.openById(
+            "1Ftx2MOi1rxqAAtk0G12QPkgRzOhwhaZpJmPvwK_GZXA"
+          );
+          var body = doc.getBody();
+
+          var formData = data.join(", ");
+
+          var newParagraph = body.appendParagraph(formData);
+
+          var now = new Date();
+          newParagraph.appendText("Отправлено: " + now);
+
+          // Отправляем сообщение об успешной отправке
+          return "Данные успешно отправлены.";
+        }
       </script>
     </main>
   </body>
