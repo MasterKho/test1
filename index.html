@@ -4,216 +4,191 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="asset.css" />
+    <link rel="stylesheet" href="/asset.css" />
     <title>Document</title>
   </head>
+
   <body>
     <main>
-      <div>
-        <button class="button button_item1" id="myButton">
-          Джин-Клубника-Базилик
-        </button>
-        <button class="button button_item1" id="myButton2">
-          Арбуз-Базилик
-        </button>
-        <button class="button button_item1" id="myButton3">
-          Ром на груше - тархун
-        </button>
-        <button class="button button_item1" id="myButton4">
-          Мокровь-Апльсин-Грейфрут
-        </button>
-        <button class="button button_item1" id="myButton5">Ром-Банан</button>
-        <button class="button button_item1" id="myButton6">
-          Алоэ-Джин-Красный бизилик
-        </button>
-      </div>
-      <div>
-        <button class="button button_item1" id="myButton7">Кислый</button>
-        <button class="button button_item1" id="myButton8">Сладкий</button>
-        <button class="button button_item1" id="myButton9">
-          Кисло-сладкий
-        </button>
-        <button class="button button_item1" id="myButton10">Горький</button>
-        <button class="button button_item1" id="myButton11">Соленый</button>
-      </div>
-      <div>
-        <button class="button button_item1" id="myButton12">Крепкий</button>
-        <button class="button button_item1" id="myButton13">Не крепкий</button>
-      </div>
+      <div id="buttonContainer1"></div>
+      <div id="buttonContainer2"></div>
+      <div id="buttonContainer3"></div>
 
-      <form id="dataForm">
+      <form id="dataForm" name="submit-to-google-sheet">
         <label for="data">Собранные данные:</label>
+        <input
+          class="form"
+          placeholder="Введите имя"
+          type="userName"
+          id="userName"
+          name="userName"
+        />
+
         <input class="form" type="text" id="data" name="data" readonly />
 
         <button id="resetButton">Сброс</button>
-        <button id="submitButton">Отправить</button>
+        <button id="submitButton" type="submit">Отправить</button>
       </form>
       <div id="resultMessage"></div>
       <script>
-        function toggleTextAndBackground(button, text1, text2) {
-          var isAlternate = false; // Флаг для отслеживания текущего состояния
+        console.log("generate buttons");
+        const buttonNames1 = [
+          "Джин-Клубника-Базилик",
+          "Арбуз-Базилик",
+          "Ром на груше - тархун",
+          "Мокровь-Апльсин-Грейфрут",
+          "Алоэ-Джин-Красный бизилик",
+        ];
 
-          return function () {
-            if (isAlternate) {
-              // Если флаг установлен, возвращаем исходный текст и фон
-              button.textContent = text1;
-              button.style.backgroundColor = "";
-            } else {
-              // В противном случае, устанавливаем альтернативный текст и фон
-              button.textContent = text2;
-              button.style.backgroundColor = "#00ff00"; // Зеленый цвет фона
-            }
-            // Инвертируем флаг
-            isAlternate = !isAlternate;
-          };
-        }
-        //кнопки 1 ряд
-        var button = document.getElementById("myButton");
-        button.addEventListener(
-          "click",
-          toggleTextAndBackground(
-            button,
-            "Джин-Клубника-Базилик",
-            "Заявка принята!"
-          )
-        );
+        const buttonNames2 = [
+          "Кислый",
+          "Сладкий",
+          "Кисло-сладкий",
+          "Горький",
+          "Соленый",
+        ];
 
-        var button1 = document.getElementById("myButton2");
-        button1.addEventListener(
-          "click",
-          toggleTextAndBackground(button1, "Арбуз-Базилик", "Заявка принята!")
-        );
-
-        var button2 = document.getElementById("myButton3");
-        button2.addEventListener(
-          "click",
-          toggleTextAndBackground(
-            button2,
-            "Ром на груше - тархун",
-            "Заявка принята!"
-          )
-        );
-
-        var button3 = document.getElementById("myButton4");
-        button3.addEventListener(
-          "click",
-          toggleTextAndBackground(
-            button3,
-            " Мокровь-Апльсин-Грейфрут",
-            "Заявка принята!"
-          )
-        );
-
-        var button4 = document.getElementById("myButton5");
-        button4.addEventListener(
-          "click",
-          toggleTextAndBackground(button4, "Ром-Банан", "Заявка принята!")
-        );
-
-        var button5 = document.getElementById("myButton6");
-        button5.addEventListener(
-          "click",
-          toggleTextAndBackground(
-            button5,
-            "Алоэ-Джин-Красный бизилик",
-            "Заявка принята!"
-          )
-        );
-        //кнопки 2 ряд
-        var button6 = document.getElementById("myButton7");
-        button6.addEventListener(
-          "click",
-          toggleTextAndBackground(button6, "Кислый", "Заявка принята!")
-        );
-
-        var button7 = document.getElementById("myButton8");
-        button7.addEventListener(
-          "click",
-          toggleTextAndBackground(button7, "Сладкий", "Заявка принята!")
-        );
-
-        var button8 = document.getElementById("myButton9");
-        button8.addEventListener(
-          "click",
-          toggleTextAndBackground(button8, "Кисло-Сладкий", "Заявка принята!")
-        );
-
-        var button9 = document.getElementById("myButton10");
-        button9.addEventListener(
-          "click",
-          toggleTextAndBackground(button9, "Горький", "Заявка принята!")
-        );
-
-        var button10 = document.getElementById("myButton11");
-        button10.addEventListener(
-          "click",
-          toggleTextAndBackground(button10, "Соленый", "Заявка принята!")
-        );
-        //3ряд кнопки
-        var button11 = document.getElementById("myButton12");
-        button11.addEventListener(
-          "click",
-          toggleTextAndBackground(button11, "Крепкий", "Заявка принята!")
-        );
-
-        var button12 = document.getElementById("myButton13");
-        button12.addEventListener(
-          "click",
-          toggleTextAndBackground(button12, "Не крепкий", "Заявка принята!")
-        );
-
-        //форма
-
-        var collectedData = [];
-
-        function handleButtonClick(button) {
-          var buttonText = button.textContent;
-          var index = collectedData.indexOf(buttonText);
-
+        const buttonNames3 = ["Крепкий", "Не крепкий"];
+        let collectedData = [];
+        buttonClickListener = (e) => {
+          const button = e.target;
+          var buttonName = button.name;
+          let index = collectedData.indexOf(buttonName);
           if (index !== -1) {
             collectedData.splice(index, 1);
+            button.style.backgroundColor = "";
           } else {
-            collectedData.push(buttonText);
+            collectedData.push(buttonName);
+            button.style.backgroundColor = "#00ff00"; // Зеленый цвет фона
           }
-
+          console.log(collectedData);
           var dataField = document.getElementById("data");
           dataField.value = collectedData.join(", ");
-        }
+        };
 
-        var buttons = document.querySelectorAll(".button");
-        buttons.forEach(function (button) {
-          button.addEventListener("click", function () {
-            handleButtonClick(button);
-          });
-        });
+        const buttonNamesByRows = {
+          1: buttonNames1,
+          2: buttonNames2,
+          3: buttonNames3,
+        };
+
+        Object.entries(buttonNamesByRows).forEach(
+          ([rowNum, buttonNames], index) => {
+            buttonNames.forEach((buttonName) => {
+              const buttonContainer = document.getElementById(
+                `buttonContainer${rowNum}`
+              );
+              const button = document.createElement("button");
+              button.innerHTML = buttonName;
+              button.clicked = false;
+              button.name = buttonName;
+              button.classList.add("button", "button_item1", "property");
+
+              button.id = `button${index + 1}`;
+              button.addEventListener("click", buttonClickListener);
+              buttonContainer.appendChild(button);
+            });
+          }
+        );
 
         var resetButton = document.getElementById("resetButton");
         resetButton.addEventListener("click", function () {
           collectedData = [];
+          // Сбросить цвет кнопок
+          var buttons = document.querySelectorAll(".property");
+          buttons.forEach(function (button) {
+            button.style.backgroundColor = "";
+          });
+
           var dataField = document.getElementById("data");
           dataField.value = "";
         });
 
         // Скрипт отправки данных на Google Документ
         var googleScriptUrl =
-          "https://script.google.com/macros/s/your-script-id/exec";
+          "https://script.google.com/macros/s/AKfycbyAQaBRmIJ1DA_qvQkD5SkV0Pb4nG5TUYf8mfdekGb5YdqzkddJop3WMtiI6KnLTmGP/exec";
 
         var submitButton = document.getElementById("submitButton");
         var resultMessage = document.getElementById("resultMessage");
 
-        submitButton.addEventListener("click", function () {
+        // ссылка отправка
+
+        const form = document.forms["submit-to-google-sheet"];
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
           var confirmation = confirm(
             "Вы уверены, что хотите отправить данные?"
           );
 
           if (confirmation) {
+            function generateUUID() {
+              // Generate a random UUID
+              return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+                /[xy]/g,
+                function (c) {
+                  var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                  return v.toString(16);
+                }
+              );
+            }
+
+            function getCookie(name) {
+              var cookieName = name + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var cookieArray = decodedCookie.split(";");
+              for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == " ") {
+                  cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) == 0) {
+                  return cookie.substring(cookieName.length, cookie.length);
+                }
+              }
+              return null;
+            }
+
+            function setCookie(name, value, days) {
+              var expires = "";
+              if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                expires = "; expires=" + date.toUTCString();
+              }
+              document.cookie =
+                name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            // Check if the UUID cookie exists
+            var uuid = getCookie("NoMoId");
+            if (!uuid) {
+              // If the UUID cookie does not exist, generate a new UUID and set the cookie
+              uuid = generateUUID();
+              setCookie("myUUID", uuid, 9999); // The '30' indicates the cookie's expiration period in days
+              console.log("UUID cookie set:", uuid);
+            } else {
+              // If the UUID cookie exists, log the existing UUID
+              console.log("Existing UUID cookie found:", uuid);
+            }
+
+            var userNameValue = document.getElementById("userName").value;
+            const requestPayload = {
+              name: userNameValue,
+              uuid,
+              properties: collectedData,
+            };
+
+            console.log(requestPayload);
+            console.log(googleScriptUrl);
+
             // Если пользователь нажал "ОК" в окне подтверждения
             var xhr = new XMLHttpRequest();
             xhr.open("POST", googleScriptUrl, true);
-            xhr.setRequestHeader(
-              "Content-Type",
-              "application/x-www-form-urlencoded"
-            );
+            xhr.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
+            xhr.setRequestHeader("Accept", "*/*");
+            xhr.setRequestHeader("Accept-Encoding", "gzip, deflate, br");
 
             xhr.onreadystatechange = function () {
               if (xhr.readyState == 4 && xhr.status == 200) {
@@ -224,8 +199,7 @@
               }
             };
 
-            var data = "data=" + encodeURIComponent(collectedData.join(", "));
-            xhr.send(data);
+            xhr.send(JSON.stringify(requestPayload));
           } else {
             // Если пользователь нажал "Отмена" в окне подтверждения
             resultMessage.textContent = "Отправка данных отменена.";
