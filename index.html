@@ -49,6 +49,7 @@
         ];
 
         const buttonNames3 = ["Крепкий", "Не крепкий"];
+        //
         let collectedData = [];
         buttonClickListener = (e) => {
           const button = e.target;
@@ -62,6 +63,7 @@
             button.style.backgroundColor = "#00ff00"; // Зеленый цвет фона
           }
           console.log(collectedData);
+          //
           var dataField = document.getElementById("data");
           dataField.value = collectedData.join(", ");
         };
@@ -71,7 +73,7 @@
           2: buttonNames2,
           3: buttonNames3,
         };
-
+        //
         Object.entries(buttonNamesByRows).forEach(
           ([rowNum, buttonNames], index) => {
             buttonNames.forEach((buttonName) => {
@@ -207,5 +209,23 @@
         });
       </script>
     </main>
+    <style>
+      button {
+        background-color: #ff7700; /* Цвет фона кнопок */
+        color: #fff; /* Цвет текста кнопок */
+        font-weight: bold;
+        padding: 10px 20px; /* Отступы вокруг текста кнопок */
+        margin: 15px;
+        cursor: pointer; /* Задайте курсор-указатель при наведении */
+        border: none;
+      }
+      label {
+        margin-left: 15px;
+      }
+      .form {
+        width: 250px;
+        margin-top: 10px;
+      }
+    </style>
   </body>
 </html>
