@@ -10,20 +10,26 @@
 
   <body>
     <main>
-      <div id="buttonContainer1"></div>
+      <div class="buttonContainer_1" id="buttonContainer1"></div>
       <div id="buttonContainer2"></div>
       <div id="buttonContainer3"></div>
 
       <form id="dataForm" name="submit-to-google-sheet">
-        <label for="data">Собранные данные:</label>
+        <label class="label" for="data">Собранные данные:</label>
         <input
           class="form"
-          placeholder="Введите имя"
+          placeholder="name"
           type="userName"
           id="userName"
           name="userName"
         />
-
+        <input
+          class="form"
+          placeholder="phone"
+          type="tel"
+          id="userPhone"
+          name="userPhone"
+        />
         <input class="form" type="text" id="data" name="data" readonly />
 
         <button id="resetButton">Сброс</button>
@@ -210,17 +216,33 @@
       </script>
     </main>
     <style>
+      body {
+        background-color: #1a1a1a;
+      }
+      main {
+        display: block;
+      }
+
       button {
         background-color: #ff7700; /* Цвет фона кнопок */
         color: #fff; /* Цвет текста кнопок */
         font-weight: bold;
+        border-radius: 20px;
         padding: 10px 20px; /* Отступы вокруг текста кнопок */
         margin: 15px;
         cursor: pointer; /* Задайте курсор-указатель при наведении */
         border: none;
       }
+      #resetButton,
+      #submitButton {
+        display: inline-block;
+      }
+      button + button {
+        margin-top: 10px;
+      }
       label {
         margin-left: 15px;
+        color: #fff;
       }
       .form {
         width: 250px;
