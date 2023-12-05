@@ -36,13 +36,16 @@
         <button id="submitButton" type="submit">Отправить</button>
       </form>
       <div id="resultMessage"></div>
+      <button><a href="http://nothingmoremenu.tilda.ws/">меню</a></button>
+      <button><a href="http://nothingmoremenu.tilda.ws/blog">блог</a></button>
+
       <script>
         console.log("generate buttons");
         const buttonNames1 = [
           "Джин-Клубника-Базилик",
           "Арбуз-Базилик",
           "Ром на груше - тархун",
-          "Мокровь-Апльсин-Грейфрут",
+          "Мокровь-Апельсин-Грейфрут",
           "Алоэ-Джин-Красный бизилик",
         ];
 
@@ -114,7 +117,7 @@
 
         // Скрипт отправки данных на Google Документ
         var googleScriptUrl =
-          "https://script.google.com/macros/s/AKfycbyAQaBRmIJ1DA_qvQkD5SkV0Pb4nG5TUYf8mfdekGb5YdqzkddJop3WMtiI6KnLTmGP/exec";
+          "https://script.google.com/macros/s/AKfycbxYVJr0gfD3QBjUZIfMJNF-sgug-UEMeMbFPTfpdycjOR3m27P4Qt3_tZehRFCBb-Ha/exec";
 
         var submitButton = document.getElementById("submitButton");
         var resultMessage = document.getElementById("resultMessage");
@@ -181,17 +184,24 @@
               console.log("Existing UUID cookie found:", uuid);
             }
 
-            var userNameValue = document.getElementById("userName").value;
+            const userNameValue = document.getElementById("userName").value; // достаем значения из форм
+            const phoneValue = document.getElementById("userPhone").value; // достаем значения из форм
+            const urlParams = new URLSearchParams(window.location.search); // получаем все значение из адрессной строки
+            const tableNumValue = urlParams.get("tableNum"); // извлекаем номер стола
+
+            // формируем пакет данны
             const requestPayload = {
               name: userNameValue,
-              uuid,
-              properties: collectedData,
+              phone: phoneValue,
+              tableNum: tableNumValue,
+              uuid, // уникальный id для идентификации пользователя
+              properties: collectedData, // данные из кнопок
             };
 
             console.log(requestPayload);
             console.log(googleScriptUrl);
 
-            // Если пользователь нажал "ОК" в окне подтверждения
+            // отправка пакета данных в гугл таблицы
             var xhr = new XMLHttpRequest();
             xhr.open("POST", googleScriptUrl, true);
             xhr.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
@@ -247,6 +257,10 @@
       .form {
         width: 250px;
         margin-top: 10px;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
       }
     </style>
   </body>
