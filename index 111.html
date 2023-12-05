@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/asset.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <main>
+      <div class="buttonContainer_1" id="buttonContainer1"></div>
+      <div id="buttonContainer2"></div>
+      <div id="buttonContainer3"></div>
+
+      <form id="dataForm" name="submit-to-google-sheet">
+        <label class="label" for="data">Собранные данные:</label>
+        <input
+          class="form"
+          placeholder="name"
+          type="userName"
+          id="userName"
+          name="userName"
+        />
+        <input
+          class="form"
+          placeholder="phone"
+          type="tel"
+          id="userPhone"
+          name="userPhone"
+        />
+        <input class="form" type="text" id="data" name="data" readonly />
+
+        <button id="resetButton">Сброс</button>
+        <button id="submitButton" type="submit">Отправить</button>
+      </form>
+      <div id="resultMessage"></div>
+      <button><a href="http://nothingmoremenu.tilda.ws/">меню</a></button>
+      <button><a href="http://nothingmoremenu.tilda.ws/blog">блог</a></button>
+
+      <script>
+        console.log("generate buttons");
+        const buttonNames1 = [
+          "Джин-Клубника-Базилик",
+          "Арбуз-Базилик",
+          "Ром на груше - тархун",
+          "Мокровь-Апельсин-Грейфрут",
+          "Алоэ-Джин-Красный бизилик",
+        ];
+
+        const buttonNames2 = [
+          "Кислый",
+          "Сладкий",
+          "Кисло-сладкий",
+          "Горький",
+          "Соленый",
+        ];
+
+        const buttonNames3 = ["Крепкий", "Не крепкий"];
+        //
+        let collectedData = [];
+        buttonClickListener = (e) => {
+          const button = e.target;
+          var buttonName = button.name;
+          let index = collectedData.indexOf(buttonName);
+          if (index !== -1) {
+            collectedData.splice(index, 1);
+            button.style.backgroundColor = "";
+          } else {
+            collectedData.push(buttonName);
+            button.style.backgroundColor = "#00ff00"; // Зеленый цвет фона
+          }
+          console.log(collectedData);
+          //
+          var dataField = document.getElementById("data");
+          dataField.value = collectedData.join(", ");
+        };
+
+        const buttonNamesByRows = {
+          1: buttonNames1,
+          2: buttonNames2,
+          3: buttonNames3,
+        };
+        //
+        Object.entries(buttonNamesByRows).forEach(
+          ([rowNum, buttonNames], index) => {
+            buttonNames.forEach((buttonName) => {
+              const buttonContainer = document.getElementById(
+                `buttonContainer${rowNum}`
+              );
+              const button = document.createElement("button");
+              button.innerHTML = buttonName;
+              button.clicked = false;
+              button.name = buttonName;
+              button.classList.add("button", "button_item1", "property");
+
+              button.id = `button${index + 1}`;
+              button.addEventListener("click", buttonClickListener);
+              buttonContainer.appendChild(button);
+            });
+          }
+        );
+
+        var resetButton = document.getElementById("resetButton");
+        resetButton.addEventListener("click", function () {
+          collectedData = [];
+          // Сбросить цвет кнопок
+          var buttons = document.querySelectorAll(".property");
+          buttons.forEach(function (button) {
+            button.style.backgroundColor = "";
+          });
+
+          var dataField = document.getElementById("data");
+          dataField.value = "";
+        });
+
+        // Скрипт отправки данных на Google Документ
+        var googleScriptUrl =
+          "https://script.google.com/macros/s/AKfycbxYVJr0gfD3QBjUZIfMJNF-sgug-UEMeMbFPTfpdycjOR3m27P4Qt3_tZehRFCBb-Ha/exec";
+
+        var submitButton = document.getElementById("submitButton");
+        var resultMessage = document.getElementById("resultMessage");
+
+        // ссылка отправка
+
+        const form = document.forms["submit-to-google-sheet"];
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          var confirmation = confirm(
+            "Вы уверены, что хотите отправить данные?"
+          );
+
+          if (confirmation) {
+            function generateUUID() {
+              // Generate a random UUID
+              return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+                /[xy]/g,
+                function (c) {
+                  var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                  return v.toString(16);
+                }
+              );
+            }
+
+            function getCookie(name) {
+              var cookieName = name + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var cookieArray = decodedCookie.split(";");
+              for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == " ") {
+                  cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) == 0) {
+                  return cookie.substring(cookieName.length, cookie.length);
+                }
+              }
+              return null;
+            }
+
+            function setCookie(name, value, days) {
+              var expires = "";
+              if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                expires = "; expires=" + date.toUTCString();
+              }
+              document.cookie =
+                name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            // Check if the UUID cookie exists
+            var uuid = getCookie("NoMoId");
+            if (!uuid) {
+              // If the UUID cookie does not exist, generate a new UUID and set the cookie
+              uuid = generateUUID();
+              setCookie("myUUID", uuid, 9999); // The '30' indicates the cookie's expiration period in days
+              console.log("UUID cookie set:", uuid);
+            } else {
+              // If the UUID cookie exists, log the existing UUID
+              console.log("Existing UUID cookie found:", uuid);
+            }
+
+            const userNameValue = document.getElementById("userName").value; // достаем значения из форм
+            const phoneValue = document.getElementById("userPhone").value; // достаем значения из форм
+            const urlParams = new URLSearchParams(window.location.search); // получаем все значение из адрессной строки
+            const tableNumValue = urlParams.get("tableNum"); // извлекаем номер стола
+
+            // формируем пакет данны
+            const requestPayload = {
+              name: userNameValue,
+              phone: phoneValue,
+              tableNum: tableNumValue,
+              uuid, // уникальный id для идентификации пользователя
+              properties: collectedData, // данные из кнопок
+            };
+
+            console.log(requestPayload);
+            console.log(googleScriptUrl);
+
+            // отправка пакета данных в гугл таблицы
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", googleScriptUrl, true);
+            xhr.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
+            xhr.setRequestHeader("Accept", "*/*");
+            xhr.setRequestHeader("Accept-Encoding", "gzip, deflate, br");
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                resultMessage.textContent = "Данные успешно отправлены.";
+              } else if (xhr.readyState == 4 && xhr.status != 200) {
+                resultMessage.textContent =
+                  "Произошла ошибка при отправке данных.";
+              }
+            };
+
+            xhr.send(JSON.stringify(requestPayload));
+          } else {
+            // Если пользователь нажал "Отмена" в окне подтверждения
+            resultMessage.textContent = "Отправка данных отменена.";
+          }
+        });
+      </script>
+    </main>
+    <style>
+      body {
+        background-color: #1a1a1a;
+      }
+      main {
+        display: block;
+      }
+
+      button {
+        background-color: #ff7700; /* Цвет фона кнопок */
+        color: #fff; /* Цвет текста кнопок */
+        font-weight: bold;
+        border-radius: 20px;
+        padding: 10px 20px; /* Отступы вокруг текста кнопок */
+        margin: 15px;
+        cursor: pointer; /* Задайте курсор-указатель при наведении */
+        border: none;
+      }
+      #resetButton,
+      #submitButton {
+        display: inline-block;
+      }
+      button + button {
+        margin-top: 10px;
+      }
+      label {
+        margin-left: 15px;
+        color: #fff;
+      }
+      .form {
+        width: 250px;
+        margin-top: 10px;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+    </style>
+  </body>
+</html>
